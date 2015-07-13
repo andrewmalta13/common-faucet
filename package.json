@@ -1,0 +1,11 @@
+{
+  "name": "common-faucet",
+  "version": "1.0.0",
+  "description": "A faucet interface to allow test environments to get testnet coin (maybe other coins later) to drive their tests.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Andrew Malta <andrew.malta@yale.edu>",
+  "license": "ISC"
+}
