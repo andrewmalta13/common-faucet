@@ -30,17 +30,13 @@ function filterTransactions(client, txids, options, callback) {
         if (resp[i].vin[0].addresses && (resp[i].vin[0].addresses[0] === options.faucetAddress)) {
           faucetTransactionTimes.push((new Date().getTime()) - resp[i].timeReceived);
         }
+      }
       callback(false, ((faucetTransactionTimes.length > 0) ? Math.min.apply(Math, faucetTransactionTimes) : null));
     }
   });
 }
 
 var Faucet = function (opts) { 
-  var commonBlockchain = require('blockcypher-unofficial')({
-    network: opts.network,
-    key: opts.key
-  });
-
   var Send = function (options, callback){
     if (!options.faucetWIF || !options.amount || !options.destinationAddress) {
       callback("missing arguments", null);
@@ -51,7 +47,7 @@ var Faucet = function (opts) {
         callback("invalid faucet wif", null);
       }
       else {
-        commonBlockchain.Addresses.Unspents(["mpA7LkZe8TKNMgTPJVbn5StQ6Yh28fXg1d"], function (err, resp){
+        opts.commonBlockchainClient.Addresses.Unspents(["mpA7LkZe8TKNMgTPJVbn5StQ6Yh28fXg1d"], function (err, resp){
           if (err) {
             callback("error getting unspents from address", null);
           }
@@ -60,7 +56,7 @@ var Faucet = function (opts) {
               amountForDestinationInBTC: options.amount,
               destinationAddress: options.destinationAddress,
               network: opts.network,
-              propagateCallback: commonBlockchain.Transactions.Propagate,
+              propagateCallback: opts.commonBlockchainClient.Transactions.Propagate,
               rawUnspentOutputs: resp[0],
               sourceWIF: options.faucetWIF
             };
@@ -78,12 +74,12 @@ var Faucet = function (opts) {
     }
   };
 
-  var Balance = function(options, callback){
-    if (!options.address) {
+  var Balance = function(address, callback){
+    if (!address) {
       callback("no address specified", null);
     }
     else {
-      commonBlockchain.Addresses.Summary([options.address], function (err, resp) {
+      opts.commonBlockchainClient.Addresses.Summary([address], function (err, resp) {
         if (err) {
           callback("error retrieving balance from the address that was given", null);
         }
@@ -94,13 +90,13 @@ var Faucet = function (opts) {
     }
   };
   
-  //a function to see if a specific address has recieved coin(s) from the specified faucet address
+  //a function to see if a specific address has received coin(s) from the specified faucet address
   //if so it will return how long ago (in milliseconds) otherwise null.
 
   //Warning, blockcypher limits your requests pretty heavily if you dont have a api key (get one to perform this funcition)
-  var LastRecieved = function(options, callback) {
-    getTxids(commonBlockchain, options, function (err, txids) {
-      filterTransactions(commonBlockchain, txids, options, function (err, resp){
+  var LastReceived = function(options, callback) {
+    getTxids(opts.commonBlockchainClient, options, function (err, txids) {
+      filterTransactions(opts.commonBlockchainClient, txids, options, function (err, resp){
         callback(err, resp);
       });
     }); 

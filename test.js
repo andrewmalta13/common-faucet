@@ -1,4 +1,12 @@
-var client = require('./index.js')({network: "testnet", key: process.env.KEY});
+var commonBlockchainClient = require('blockcypher-unofficial')({
+  network: "testnet",
+  key: process.env.KEY
+});
+var client = require('./index.js')({
+  network: "testnet",
+  commonBlockchainClient: commonBlockchainClient
+});
+
 
 function test(err, resp){
   if (err) {
@@ -15,9 +23,9 @@ function test(err, resp){
 //   destinationAddress: "n3QjrSMbYUXubN3NFSxMRp1UVWBzrhBRjG"
 // }, test);
 
-// client.Balance({address: "n3QjrSMbYUXubN3NFSxMRp1UVWBzrhBRjG"}, test);
+// client.Balance("n3QjrSMbYUXubN3NFSxMRp1UVWBzrhBRjG", test);
 
-client.LastRecieved({
+client.LastReceived({
   faucetAddress: "mpA7LkZe8TKNMgTPJVbn5StQ6Yh28fXg1d",
   destinationAddress: "n3QjrSMbYUXubN3NFSxMRp1UVWBzrhBRjG" 
 }, test);

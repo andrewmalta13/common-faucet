@@ -5,6 +5,11 @@ function Faucet(opts) {
     console.log("required options not included. Did you declare a network?");
     return;
   }
+
+  if(!opts.commonBlockchainClient){
+    console.log("please specify a common blockchain client!");
+    return;
+  }
   
   return(require("./src/faucet.js")(opts));
 }

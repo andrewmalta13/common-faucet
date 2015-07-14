@@ -10,7 +10,6 @@
   "license": "ISC",
   "dependencies": {
     "bigi": "^1.4.0",
-    "bitcoinjs-lib": "^1.5.7",
-    "blockcypher-unofficial": "^1.4.1"
+    "bitcoinjs-lib": "^1.5.7"
   }
 }
