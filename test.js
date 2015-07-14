@@ -1,4 +1,4 @@
-var client = require('./index.js')({network: "testnet"});
+var client = require('./index.js')({network: "testnet", key: process.env.KEY});
 
 function test(err, resp){
   if (err) {
