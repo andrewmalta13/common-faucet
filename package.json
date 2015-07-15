@@ -1,7 +1,7 @@
 {
   "name": "common-faucet",
-  "version": "1.0.0",
-  "description": "A faucet interface to allow test environments to get testnet coin (maybe other coins later) to drive their tests.",
+  "version": "1.0.1",
+  "description": "A faucet interface people to host their own faucets and for test suites to get testnet coin",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

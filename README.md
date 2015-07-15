@@ -22,6 +22,17 @@ var faucetClient = faucet({
 });
 ```
 
+## Get Testnet Coin Programmatically
+You can use our common-faucet instance at http://blockai-faucet.herokuapp.com/ if you need testnet coin for
+your test suites. Here is how you would do it:
+
+```javascript
+faucet.Get({
+  faucetURL: "http://blockai-faucet.herokuapp.com/",
+  address: (the address you want the faucet to send to)
+}, callback);
+```
+
 ## Functionality
 
 ```javascript
