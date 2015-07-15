@@ -29,7 +29,7 @@ var faucetClient = faucet({
 
 faucet.Balance((some address), callback);
 
-//use our faucet endpoint for now "INSERT BASE FAUCET URL"
+//use our faucet endpoint for now http://blockai-faucet.herokuapp.com/
 faucet.Get({
   faucetURL: (the url to a faucet endpoint),
   address: (the address you want the faucet to send to)
