@@ -43,14 +43,13 @@ faucet.LastReceived({
   faucetAddress: (address of the faucet you wish to inspect),
   destinationAddress: (the address you wish to probe for faucet transactions)
 }, callback);
-```
 
 faucet.Send({
   faucetWIF: (the wif of your faucet address to sign the transactions),
   amount: (amount in bitcoin you wish to send),
   destinationAddress: (the address that you wish to send the bitcoin to)
 }, callback);
-
+```
 
 
 
