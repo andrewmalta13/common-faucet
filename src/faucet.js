@@ -1,4 +1,5 @@
 var bitcoin = require('./bitcoin.js');
+var request = require('request');
 
 function getTxids(client, options, callback){
   if (!options.faucetAddress || !options.destinationAddress) {
@@ -37,6 +38,53 @@ function filterTransactions(client, txids, options, callback) {
 }
 
 var Faucet = function (opts) { 
+  var Balance = function(address, callback){
+    if (!address) {
+      callback("no address specified", null);
+    }
+    else {
+      opts.commonBlockchain.Addresses.Summary([address], function (err, resp) {
+        if (err) {
+          callback("error retrieving balance from the address that was given", null);
+        }
+        else {
+          callback(false, resp[0].balance);
+        }
+      });
+    }
+  }
+  
+  var Get = function(options, callback){
+    if (!options.address || !options.faucetURL) {
+      callback("insuffiecient arguments", null);
+    }
+    else {
+      var url = options.faucetURL + "?address=" + options.address + "&network=" + opts.network;
+      console.log(url);
+      request.get(url, function (err, response, body) {
+        if (err) {
+          console.log("error getting coin from the faucet " + err);
+          callback(err, null);
+        } 
+        else {
+          callback(false, body);
+        }
+      });
+    }
+  }
+
+  //a function to see if a specific address has received coin(s) from the specified faucet address
+  //if so it will return how long ago (in milliseconds) otherwise null.
+
+  //Warning, blockcypher limits your requests pretty heavily if you dont have a api key (get one to perform this funcition)
+  var LastReceived = function(options, callback) {
+    getTxids(opts.commonBlockchain, options, function (err, txids) {
+      filterTransactions(opts.commonBlockchain, txids, options, function (err, resp){
+        callback(err, resp);
+      });
+    });
+  }
+
   var Send = function (options, callback){
     if (!options.faucetWIF || !options.amount || !options.destinationAddress) {
       callback("missing arguments", null);
@@ -47,7 +95,7 @@ var Faucet = function (opts) {
         callback("invalid faucet wif", null);
       }
       else {
-        opts.commonBlockchainClient.Addresses.Unspents(["mpA7LkZe8TKNMgTPJVbn5StQ6Yh28fXg1d"], function (err, resp){
+        opts.commonBlockchain.Addresses.Unspents(["mpA7LkZe8TKNMgTPJVbn5StQ6Yh28fXg1d"], function (err, resp){
           if (err) {
             callback("error getting unspents from address", null);
           }
@@ -56,7 +104,7 @@ var Faucet = function (opts) {
               amountForDestinationInBTC: options.amount,
               destinationAddress: options.destinationAddress,
               network: opts.network,
-              propagateCallback: opts.commonBlockchainClient.Transactions.Propagate,
+              propagateCallback: opts.commonBlockchain.Transactions.Propagate,
               rawUnspentOutputs: resp[0],
               sourceWIF: options.faucetWIF
             };
@@ -72,40 +120,13 @@ var Faucet = function (opts) {
         });
       } 
     }
-  };
-
-  var Balance = function(address, callback){
-    if (!address) {
-      callback("no address specified", null);
-    }
-    else {
-      opts.commonBlockchainClient.Addresses.Summary([address], function (err, resp) {
-        if (err) {
-          callback("error retrieving balance from the address that was given", null);
-        }
-        else {
-          callback(false, resp[0].balance);
-        }
-      });
-    }
-  };
-  
-  //a function to see if a specific address has received coin(s) from the specified faucet address
-  //if so it will return how long ago (in milliseconds) otherwise null.
-
-  //Warning, blockcypher limits your requests pretty heavily if you dont have a api key (get one to perform this funcition)
-  var LastReceived = function(options, callback) {
-    getTxids(opts.commonBlockchainClient, options, function (err, txids) {
-      filterTransactions(opts.commonBlockchainClient, txids, options, function (err, resp){
-        callback(err, resp);
-      });
-    }); 
   }
 
   return({
     Send: Send,
     Balance: Balance,
-    LastRecieved: LastRecieved
+    Get: Get,
+    LastReceived: LastReceived
   });
 };
 

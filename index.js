@@ -6,7 +6,7 @@ function Faucet(opts) {
     return;
   }
 
-  if(!opts.commonBlockchainClient){
+  if(!opts.commonBlockchain){
     console.log("please specify a common blockchain client!");
     return;
   }

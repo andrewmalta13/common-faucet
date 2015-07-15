@@ -8,8 +8,13 @@
   },
   "author": "Andrew Malta <andrew.malta@yale.edu>",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/andrewmalta13/common-faucet"
+  },
   "dependencies": {
     "bigi": "^1.4.0",
-    "bitcoinjs-lib": "^1.5.7"
+    "bitcoinjs-lib": "^1.5.7",
+    "request": "^2.58.0"
   }
 }

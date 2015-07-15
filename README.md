@@ -27,14 +27,13 @@ var faucetClient = faucet({
 ```javascript
 //callback for all of these functions uses the standard callback(err, resp)
 
-
-faucet.Send({
-  faucetWIF: (the wif of your faucet address to sign the transactions),
-  amount: (amount in bitcoin you wish to send),
-  destinationAddress: (the address that you wish to send the bitcoin to)
-}, callback);
-
 faucet.Balance((some address), callback);
+
+//use our faucet endpoint for now "INSERT BASE FAUCET URL"
+faucet.Get({
+  faucetURL: (the url to a faucet endpoint),
+  address: (the address you want the faucet to send to)
+}, callback);
 
 //note this function requires a good amount of requests (or a batch request) to work.
 //I tested it with common-blockcypher and it required that I specified an api key to common-blockcypher
@@ -46,7 +45,17 @@ faucet.LastReceived({
 }, callback);
 ```
 
+faucet.Send({
+  faucetWIF: (the wif of your faucet address to sign the transactions),
+  amount: (amount in bitcoin you wish to send),
+  destinationAddress: (the address that you wish to send the bitcoin to)
+}, callback);
+
+
+
+
+
 
 ## Maintainers
-* Andrew Malta: andrew.malta@yale.eduss
+* Andrew Malta: andrew.malta@yale.edu
 
