@@ -59,7 +59,7 @@ var Faucet = function (opts) {
       callback("insuffiecient arguments", null);
     }
     else {
-      var url = options.faucetURL + "?address=" + options.address + "&network=" + opts.network;
+      var url = options.faucetURL + "?address=" + options.address;
       console.log(url);
       request.get(url, function (err, response, body) {
         if (err) {
