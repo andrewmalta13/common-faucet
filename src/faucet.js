@@ -95,7 +95,7 @@ var Faucet = function (opts) {
         callback("invalid faucet wif", null);
       }
       else {
-        opts.commonBlockchain.Addresses.Unspents(["mpA7LkZe8TKNMgTPJVbn5StQ6Yh28fXg1d"], function (err, resp){
+        opts.commonBlockchain.Addresses.Unspents([faucetAddress], function (err, resp){
           if (err) {
             callback("error getting unspents from address", null);
           }
