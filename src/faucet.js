@@ -60,7 +60,6 @@ var Faucet = function (opts) {
     }
     else {
       var url = options.faucetURL + "?address=" + options.address;
-      console.log(url);
       request.get(url, function (err, response, body) {
         if (err) {
           console.log("error getting coin from the faucet " + err);
