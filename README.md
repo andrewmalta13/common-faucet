@@ -62,10 +62,6 @@ faucet.Send({
 }, callback);
 ```
 
-
-
-
-
 ## Maintainers
 * Andrew Malta: andrew.malta@yale.edu
 

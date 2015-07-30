@@ -1,5 +1,5 @@
 var bitcoin = require('./bitcoin.js');
-var request = require('request');
+
 
 function getTxids(client, options, callback){
   if (!options.faucetAddress || !options.destinationAddress) {
@@ -60,7 +60,7 @@ var Faucet = function (opts) {
     }
     else {
       var url = options.faucetURL + "?address=" + options.address;
-      request.get(url, function (err, response, body) {
+      opts.request.get(url, function (err, response, body) {
         if (err) {
           console.log("error getting coin from the faucet " + err);
           callback(err, null);

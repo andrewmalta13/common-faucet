@@ -10,6 +10,13 @@ function Faucet(opts) {
     console.log("please specify a common blockchain client!");
     return;
   }
+
+  if(opts.inBrowser){
+    opts.request = require('browser-request');
+  }
+  else{
+    opts.request = require('request');
+  }
   
   return(require("./src/faucet.js")(opts));
 }

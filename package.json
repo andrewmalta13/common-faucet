@@ -1,6 +1,6 @@
 {
   "name": "common-faucet",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A faucet interface people to host their own faucets and for test suites to get testnet coin",
   "main": "index.js",
   "scripts": {
