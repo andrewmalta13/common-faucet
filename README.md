@@ -29,7 +29,8 @@ your test suites. Here is how you would do it:
 ```javascript
 faucet.Get({
   faucetURL: "http://blockai-faucet.herokuapp.com/",
-  address: (the address you want the faucet to send to)
+  address: (the address you want the faucet to send to),
+  inBrowser: (true if the call is from in a browser application)
 }, callback);
 ```
 
@@ -43,7 +44,8 @@ faucet.Balance((some address), callback);
 //use our faucet endpoint for now http://blockai-faucet.herokuapp.com/
 faucet.Get({
   faucetURL: (the url to a faucet endpoint),
-  address: (the address you want the faucet to send to)
+  address: (the address you want the faucet to send to),
+  inBrowser: (true if the call is from in a browser application)
 }, callback);
 
 //note this function requires a good amount of requests (or a batch request) to work.
