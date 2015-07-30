@@ -100,7 +100,7 @@ var Faucet = function (opts) {
           }
           else {
             var buildTxOptions = {
-              amountForDestinationInBTC: options.amount,
+              amountForDestination: options.amount,
               destinationAddress: options.destinationAddress,
               network: opts.network,
               propagateCallback: opts.commonBlockchain.Transactions.Propagate,

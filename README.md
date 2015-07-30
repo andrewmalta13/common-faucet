@@ -18,7 +18,8 @@ next specify the following arguments:
 ```javascript
 var faucetClient = faucet({
   network: "testnet",
-  commonBlockchainClient: (one of the common blockchain objects)
+  commonBlockchainClient: (one of the common blockchain objects),
+  inBrowser: (true if the call is from in a browser application)
 });
 ```
 
@@ -29,8 +30,7 @@ your test suites. Here is how you would do it:
 ```javascript
 faucet.Get({
   faucetURL: "http://blockai-faucet.herokuapp.com/",
-  address: (the address you want the faucet to send to),
-  inBrowser: (true if the call is from in a browser application)
+  address: (the address you want the faucet to send to)
 }, callback);
 ```
 
@@ -44,8 +44,7 @@ faucet.Balance((some address), callback);
 //use our faucet endpoint for now http://blockai-faucet.herokuapp.com/
 faucet.Get({
   faucetURL: (the url to a faucet endpoint),
-  address: (the address you want the faucet to send to),
-  inBrowser: (true if the call is from in a browser application)
+  address: (the address you want the faucet to send to)
 }, callback);
 
 //note this function requires a good amount of requests (or a batch request) to work.
@@ -59,7 +58,7 @@ faucet.LastReceived({
 
 faucet.Send({
   faucetWIF: (the wif of your faucet address to sign the transactions),
-  amount: (amount in bitcoin you wish to send),
+  amount: (amount in satoshi you wish to send),
   destinationAddress: (the address that you wish to send the bitcoin to)
 }, callback);
 ```
